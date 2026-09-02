@@ -1,4 +1,4 @@
-== BibliothekApplication
+== SamliothekApplication
 plantuml::components.puml[,,format=svg]
 
 == Catalog

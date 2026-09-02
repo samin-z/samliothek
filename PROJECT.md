@@ -1,4 +1,4 @@
-# Bibliothek — Project Definition
+# Samliothek — Project Definition
 
 **Stack:** Kotlin 2.3+ (Boot-managed; 2.4 when Boot 4.2 lands) · Spring Boot 4.1 · Spring Modulith 2.1 · Spring Data JDBC · PostgreSQL 17 · RabbitMQ 4 · Flyway · Gradle 9 (Kotlin DSL)
 **Architecture:** Modular monolith — 5 application modules, each internally hexagonal
@@ -116,7 +116,7 @@ for hitting the API.
 ### First run
 
 ```bash
-git clone <repo> && cd bibliothek
+git clone <repo> && cd samliothek
 docker compose up -d              # postgres on :5432, rabbitmq on :5672 / :15672
 ./gradlew build                   # compiles, runs unit + arch + integration tests
 ./gradlew bootRun                 # http://localhost:8080
@@ -245,7 +245,7 @@ sealed interface NotificationError {
 object Problems {
     fun of(status: Int, type: String, title: String, detail: String, instance: String): ProblemDetail
 }
-// type URIs look like: https://bibliothek.dev/errors/queue-unavailable
+// type URIs look like: https://samliothek.dev/errors/queue-unavailable
 ```
 
 > Zalando's `problem-spring-web` is explicitly in maintenance mode because Spring Framework
@@ -537,7 +537,7 @@ POST /api/loans
 
 ```http
 409 Conflict
-{ "type": "https://bibliothek.dev/errors/loan-limit-reached",
+{ "type": "https://samliothek.dev/errors/loan-limit-reached",
   "title": "Loan limit reached",
   "status": 409,
   "detail": "Standard members may hold at most 3 loans",
@@ -568,8 +568,8 @@ avoided by construction.
 ## 8. Package layout
 
 ```
-com.bibliothek
-├── BibliothekApplication.kt
+com.samliothek
+├── SamliothekApplication.kt
 │
 ├── lending/
 │   ├── LendingApi.kt                    ← named interface; the only thing others see
@@ -767,5 +767,5 @@ Write these as ADRs in `docs/adr/` during Phase 4. They exist so future-you does
 
 ---
 
-*Bibliothek — small on purpose. Four aggregates, twelve endpoints, three rules that argue
+*Samliothek — small on purpose. Four aggregates, twelve endpoints, three rules that argue
 with each other. Everything else is out of scope.*

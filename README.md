@@ -1,4 +1,4 @@
-# Bibliothek
+# Samliothek
 
 Library lending service — modular monolith. See [PROJECT.md](PROJECT.md) for the contract.
 

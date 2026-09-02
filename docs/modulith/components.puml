@@ -1,5 +1,5 @@
 @startuml
-title <size:24>BibliothekApplication</size>
+title <size:24>SamliothekApplication</size>
 
 set separator none
 top to bottom direction
@@ -15,15 +15,15 @@ top to bottom direction
 !include <C4/C4_Context>
 !include <C4/C4_Component>
 
-System_Boundary("BibliothekApplication_boundary", "BibliothekApplication", $tags="") {
-  Container_Boundary("BibliothekApplication.BibliothekApplication_boundary", "BibliothekApplication", $tags="") {
-    Component(BibliothekApplication.BibliothekApplication.Shared, "Shared", $techn="Module", $descr="", $tags="", $link="")
-    Component(BibliothekApplication.BibliothekApplication.Notification, "Notification", $techn="Module", $descr="", $tags="", $link="")
+System_Boundary("SamliothekApplication_boundary", "SamliothekApplication", $tags="") {
+  Container_Boundary("SamliothekApplication.SamliothekApplication_boundary", "SamliothekApplication", $tags="") {
+    Component(SamliothekApplication.SamliothekApplication.Shared, "Shared", $techn="Module", $descr="", $tags="", $link="")
+    Component(SamliothekApplication.SamliothekApplication.Notification, "Notification", $techn="Module", $descr="", $tags="", $link="")
   }
 
 }
 
-Rel(BibliothekApplication.BibliothekApplication.Notification, BibliothekApplication.BibliothekApplication.Shared, "depends on", $techn="", $tags="", $link="")
+Rel(SamliothekApplication.SamliothekApplication.Notification, SamliothekApplication.SamliothekApplication.Shared, "depends on", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
 hide stereotypes

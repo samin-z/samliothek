@@ -8,7 +8,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.9.3"
 }
 
-group = "com.bibliothek"
+group = "com.samliothek"
 version = "0.0.1-SNAPSHOT"
 description = "Library lending service"
 

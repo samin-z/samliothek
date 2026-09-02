@@ -1,13 +1,13 @@
 spring:
   application:
-    name: bibliothek
+    name: samliothek
   threads:
     virtual:
       enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/bibliothek
-    username: bibliothek
-    password: bibliothek
+    url: jdbc:postgresql://localhost:5432/samliothek
+    username: samliothek
+    password: samliothek
   flyway:
     enabled: true
   modulith:
@@ -18,8 +18,8 @@ spring:
   rabbitmq:
     host: localhost
     port: 5672
-    username: bibliothek
-    password: bibliothek
+    username: samliothek
+    password: samliothek
   docker:
     compose:
       lifecycle-management: start_and_stop

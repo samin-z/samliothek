@@ -1,7 +1,7 @@
 [%autowidth.stretch, cols="h,a"]
 |===
 |Base package
-|`com.bibliothek.notification`
+|`com.samliothek.notification`
 |Spring components
-|* `c.b.n.LoggingNotificationGateway`
+|* `c.s.n.LoggingNotificationGateway`
 |===

@@ -1,5 +1,5 @@
 [%autowidth.stretch, cols="h,a"]
 |===
 |Base package
-|`com.bibliothek.catalog`
+|`com.samliothek.catalog`
 |===

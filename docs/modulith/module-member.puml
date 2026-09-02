@@ -15,9 +15,9 @@ top to bottom direction
 !include <C4/C4_Context>
 !include <C4/C4_Component>
 
-System_Boundary("BibliothekApplication_boundary", "BibliothekApplication", $tags="") {
-  Container_Boundary("BibliothekApplication.BibliothekApplication_boundary", "BibliothekApplication", $tags="") {
-    Component(BibliothekApplication.BibliothekApplication.Member, "Member", $techn="Module", $descr="", $tags="", $link="")
+System_Boundary("SamliothekApplication_boundary", "SamliothekApplication", $tags="") {
+  Container_Boundary("SamliothekApplication.SamliothekApplication_boundary", "SamliothekApplication", $tags="") {
+    Component(SamliothekApplication.SamliothekApplication.Member, "Member", $techn="Module", $descr="", $tags="", $link="")
   }
 
 }

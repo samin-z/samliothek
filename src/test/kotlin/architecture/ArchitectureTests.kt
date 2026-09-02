@@ -1,6 +1,6 @@
 package architecture
 
-import com.bibliothek.BibliothekApplication
+import com.samliothek.SamliothekApplication
 import com.tngtech.archunit.core.importer.ClassFileImporter
 import com.tngtech.archunit.core.importer.ImportOption
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses
@@ -9,12 +9,12 @@ import org.springframework.modulith.core.ApplicationModules
 import org.springframework.modulith.docs.Documenter
 
 class ArchitectureTests {
-    private val modules = ApplicationModules.of(BibliothekApplication::class.java)
+    private val modules = ApplicationModules.of(SamliothekApplication::class.java)
 
     private val classes =
         ClassFileImporter()
             .withImportOption(ImportOption.DoNotIncludeTests())
-            .importPackages("com.bibliothek")
+            .importPackages("com.samliothek")
 
     @Test
     fun `modulith modules verify — no illegal cross-module access or cycles`() {
