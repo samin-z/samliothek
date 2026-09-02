@@ -1,0 +1,7 @@
+[%autowidth.stretch, cols="h,a"]
+|===
+|Base package
+|`com.bibliothek.notification`
+|Spring components
+|* `c.b.n.LoggingNotificationGateway`
+|===

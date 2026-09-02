@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: bibliothek
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bibliothek
+    username: bibliothek
+    password: bibliothek
+  flyway:
+    enabled: true
+  modulith:
+    events:
+      jdbc:
+        schema-initialization:
+          enabled: false
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: bibliothek
+    password: bibliothek
+  docker:
+    compose:
+      lifecycle-management: start_and_stop
+      skip:
+        in-tests: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+# Open API — no authentication / authorisation (deliberate; see PROJECT.md §1)

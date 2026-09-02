@@ -1,0 +1,21 @@
+complexity:
+  LongMethod:
+    threshold: 40
+  LongParameterList:
+    constructorThreshold: 8
+    functionThreshold: 6
+  TooManyFunctions:
+    thresholdInClasses: 15
+    thresholdInFiles: 20
+
+style:
+  MaxLineLength:
+    maxLineLength: 140
+  ReturnCount:
+    max: 4
+  UtilityClassWithPublicConstructor:
+    active: false
+
+performance:
+  SpreadOperator:
+    active: false

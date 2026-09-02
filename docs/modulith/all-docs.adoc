@@ -1,0 +1,23 @@
+== BibliothekApplication
+plantuml::components.puml[,,format=svg]
+
+== Catalog
+plantuml::module-catalog.puml[,,format=svg]
+include::module-catalog.adoc[]
+
+== Lending
+plantuml::module-lending.puml[,,format=svg]
+include::module-lending.adoc[]
+
+== Member
+plantuml::module-member.puml[,,format=svg]
+include::module-member.adoc[]
+
+== Shared
+plantuml::module-shared.puml[,,format=svg]
+include::module-shared.adoc[]
+
+== Notification
+plantuml::module-notification.puml[,,format=svg]
+include::module-notification.adoc[]
+
