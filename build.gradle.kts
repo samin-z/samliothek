@@ -54,6 +54,7 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers-rabbitmq")
     testImplementation("org.testcontainers:testcontainers-junit-jupiter")
     testImplementation("io.kotest:kotest-assertions-core:6.0.3")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
     testImplementation("com.tngtech.archunit:archunit-junit5:1.4.1")
     testImplementation("com.lemonappdev:konsist:0.17.3")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
