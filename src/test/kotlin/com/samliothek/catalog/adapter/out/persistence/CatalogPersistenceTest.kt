@@ -21,7 +21,6 @@ import java.util.UUID
 
 /**
  * Persistence adapter tests against real Postgres (Testcontainers).
- * JDBC adapters are added in the next step to make these green.
  */
 @DataJdbcTest(properties = ["spring.flyway.enabled=true"])
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -74,8 +73,8 @@ class CatalogPersistenceTest : PostgresIntegrationTest() {
             ),
         )
 
-        books.search("clean", page = 0, size = 20).shouldHaveSize(1)
-        books.search("gamma", page = 0, size = 20).shouldHaveSize(1)
+        books.search("testing", page = 0, size = 20).shouldHaveSize(1)
+        books.search("newly", page = 0, size = 20).shouldHaveSize(1)
         books.search("", page = 0, size = 20).shouldHaveSize(2)
     }
 
