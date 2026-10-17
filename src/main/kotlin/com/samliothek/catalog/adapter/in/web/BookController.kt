@@ -29,7 +29,7 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("/api/books")
-class BookController(
+internal class BookController(
     private val registerBook: RegisterBookUseCase,
     private val getBook: GetBookUseCase,
     private val searchBooks: SearchBooksUseCase,

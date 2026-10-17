@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
 import java.util.UUID
 
-interface BookJdbcRepository : CrudRepository<BookRecord, UUID> {
+internal interface BookJdbcRepository : CrudRepository<BookRecord, UUID> {
     fun findByIsbn(isbn: String): BookRecord?
 
     @Query(
@@ -35,7 +35,7 @@ interface BookJdbcRepository : CrudRepository<BookRecord, UUID> {
     ): List<BookRecord>
 }
 
-interface CopyJdbcRepository : CrudRepository<CopyRecord, UUID> {
+internal interface CopyJdbcRepository : CrudRepository<CopyRecord, UUID> {
     fun findByBookId(bookId: UUID): List<CopyRecord>
 
     fun findByBarcode(barcode: String): CopyRecord?

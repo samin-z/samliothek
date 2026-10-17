@@ -11,15 +11,16 @@ import com.samliothek.catalog.domain.CatalogError
 import com.samliothek.catalog.domain.Copy
 import com.samliothek.catalog.domain.CopyStatus
 import com.samliothek.shared.Barcode
-import com.samliothek.shared.Isbn
 import com.samliothek.shared.Outcome
 import com.samliothek.shared.ids.BookId
 import com.samliothek.shared.ids.CopyId
+import com.samliothek.support.requireIsbn
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
 import org.mockito.kotlin.any
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest
+import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
 import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
@@ -30,10 +31,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.util.UUID
 
 /**
- * HTTP adapter tests. Controllers/advice are added in the next step to make these green.
- * Use cases are mocked — no database.
+ * HTTP adapter tests. Use cases are mocked — no database.
  */
-@WebMvcTest(controllers = [BookController::class, CatalogExceptionAdvice::class])
+@WebMvcTest(controllers = [BookController::class])
+@Import(CatalogExceptionAdvice::class, CatalogErrorProblemMapper::class)
 class BookControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
@@ -55,7 +56,7 @@ class BookControllerTest {
 
     private val bookId = BookId(UUID.fromString("6f1c1111-1111-1111-1111-111111111111"))
     private val copyId = CopyId(UUID.fromString("a83d2222-2222-2222-2222-222222222222"))
-    private val isbn = (Isbn.of("9780132350884") as Outcome.Success).value
+    private val isbn = requireIsbn("9780132350884")
 
     @Test
     fun `POST books returns 201 with the created book`() {

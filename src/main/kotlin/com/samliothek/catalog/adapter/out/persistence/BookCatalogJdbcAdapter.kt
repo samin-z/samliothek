@@ -7,7 +7,7 @@ import com.samliothek.shared.ids.BookId
 import org.springframework.stereotype.Component
 
 @Component
-class BookCatalogJdbcAdapter(
+internal class BookCatalogJdbcAdapter(
     private val books: BookJdbcRepository,
 ) : BookCatalog {
     override fun findById(id: BookId): Book? = books.findById(id.value).orElse(null)?.toDomain()

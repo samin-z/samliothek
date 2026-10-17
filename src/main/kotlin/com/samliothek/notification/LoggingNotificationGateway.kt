@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
  * Checkout must never depend on this succeeding.
  */
 @Component
-class LoggingNotificationGateway : NotificationGateway {
+internal class LoggingNotificationGateway : NotificationGateway {
     private val log = LoggerFactory.getLogger(javaClass)
 
     override fun enqueue(message: NotificationMessage): Outcome<com.samliothek.shared.notification.NotificationError, Unit> {

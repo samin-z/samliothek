@@ -6,7 +6,7 @@ import com.samliothek.catalog.adapter.`in`.web.dto.CopyResponse
 import com.samliothek.catalog.domain.Book
 import com.samliothek.catalog.domain.Copy
 
-fun Book.toResponse() =
+internal fun Book.toResponse() =
     BookResponse(
         id = id.value.toString(),
         isbn = isbn.value,
@@ -15,7 +15,7 @@ fun Book.toResponse() =
         publishedYear = publishedYear,
     )
 
-fun List<Book>.toPageResponse(
+internal fun List<Book>.toPageResponse(
     page: Int,
     size: Int,
 ) = BookPageResponse(
@@ -24,10 +24,10 @@ fun List<Book>.toPageResponse(
     size = size,
 )
 
-fun Copy.toResponse() =
+internal fun Copy.toResponse() =
     CopyResponse(
         id = id.value.toString(),
         bookId = bookId.value.toString(),
         barcode = barcode.value,
-        status = status.name,
+        status = status,
     )

@@ -16,6 +16,29 @@ class KonsistArchitectureTests {
     }
 
     @Test
+    fun `web controllers and advice in adapter layer are internal`() {
+        Konsist
+            .scopeFromProduction()
+            .classes()
+            .filter { it.resideInPackage("..adapter.in.web..") }
+            .filter {
+                it.hasAnnotationOf(org.springframework.web.bind.annotation.RestController::class) ||
+                    it.hasAnnotationOf(org.springframework.web.bind.annotation.RestControllerAdvice::class) ||
+                    it.name.endsWith("Mapper")
+            }.assertTrue { it.hasInternalModifier }
+    }
+
+    @Test
+    fun `persistence adapters in adapter layer are internal`() {
+        Konsist
+            .scopeFromProduction()
+            .classes()
+            .filter { it.resideInPackage("..adapter.out..") }
+            .filter { it.hasAnnotationOf(org.springframework.stereotype.Component::class) }
+            .assertTrue { it.hasInternalModifier }
+    }
+
+    @Test
     fun `use case interfaces expose exactly one public abstract method`() {
         Konsist
             .scopeFromProduction()

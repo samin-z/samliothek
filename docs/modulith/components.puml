@@ -24,8 +24,8 @@ System_Boundary("SamliothekApplication_boundary", "SamliothekApplication", $tags
 
 }
 
-Rel(SamliothekApplication.SamliothekApplication.Notification, SamliothekApplication.SamliothekApplication.Shared, "depends on", $techn="", $tags="", $link="")
 Rel(SamliothekApplication.SamliothekApplication.Catalog, SamliothekApplication.SamliothekApplication.Shared, "depends on", $techn="", $tags="", $link="")
+Rel(SamliothekApplication.SamliothekApplication.Notification, SamliothekApplication.SamliothekApplication.Shared, "depends on", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
 hide stereotypes

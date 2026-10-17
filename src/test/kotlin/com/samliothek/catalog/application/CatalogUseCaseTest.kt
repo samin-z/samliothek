@@ -24,6 +24,8 @@ import com.samliothek.shared.Isbn
 import com.samliothek.shared.Outcome
 import com.samliothek.shared.ids.BookId
 import com.samliothek.shared.ids.CopyId
+import com.samliothek.support.requireIsbn
+import com.samliothek.support.requireSuccess
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -34,7 +36,6 @@ import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Use-case tests with in-memory fakes (no Spring, no database).
- * Services are added in the next step to make these green.
  */
 class CatalogUseCaseTest {
     private lateinit var books: InMemoryBookCatalog
@@ -108,6 +109,47 @@ class CatalogUseCaseTest {
     }
 
     @Test
+    fun `search books paginates results`() {
+        registerBook.register(
+            RegisterBookCommand(
+                isbn = isbn("9780132350884"),
+                title = "Alpha Book",
+                author = "Author A",
+                publishedYear = 2001,
+            ),
+        )
+        registerBook.register(
+            RegisterBookCommand(
+                isbn = isbn("9780201633610"),
+                title = "Beta Book",
+                author = "Author B",
+                publishedYear = 2002,
+            ),
+        )
+        registerBook.register(
+            RegisterBookCommand(
+                isbn = isbn("9780596007126"),
+                title = "Gamma Book",
+                author = "Author C",
+                publishedYear = 2003,
+            ),
+        )
+
+        val firstPage = searchBooks.search(searchQuery(page = 0, size = 2))
+        val secondPage = searchBooks.search(searchQuery(page = 1, size = 2))
+
+        firstPage.page shouldBe 0
+        firstPage.size shouldBe 2
+        firstPage.items.shouldHaveSize(2)
+        firstPage.items.map { it.title } shouldBe listOf("Alpha Book", "Beta Book")
+
+        secondPage.page shouldBe 1
+        secondPage.size shouldBe 2
+        secondPage.items.shouldHaveSize(1)
+        secondPage.items.single().title shouldBe "Gamma Book"
+    }
+
+    @Test
     fun `add copy fails when book does not exist`() {
         val missing = BookId(UUID.fromString("99999999-9999-9999-9999-999999999999"))
 
@@ -119,7 +161,7 @@ class CatalogUseCaseTest {
 
     @Test
     fun `add copy creates an available physical copy`() {
-        val book = (registerBook.register(cleanCodeCommand()) as Outcome.Success).value
+        val book = registerBook.register(cleanCodeCommand()).requireSuccess()
 
         val result = addCopy.add(AddCopyCommand(bookId = book.id, barcode = Barcode("BIB-000123")))
 
@@ -130,7 +172,7 @@ class CatalogUseCaseTest {
 
     @Test
     fun `list copies returns copies for a book`() {
-        val book = (registerBook.register(cleanCodeCommand()) as Outcome.Success).value
+        val book = registerBook.register(cleanCodeCommand()).requireSuccess()
         addCopy.add(AddCopyCommand(bookId = book.id, barcode = Barcode("BIB-000123")))
         addCopy.add(AddCopyCommand(bookId = book.id, barcode = Barcode("BIB-000124")))
 
@@ -158,13 +200,13 @@ class CatalogUseCaseTest {
             publishedYear = 2008,
         )
 
-    private fun isbn(raw: String): Isbn = (Isbn.of(raw) as Outcome.Success).value
+    private fun isbn(raw: String): Isbn = requireIsbn(raw)
 
     private fun searchQuery(
         query: String = "",
         page: Int = 0,
         size: Int = 20,
-    ): SearchBooksQuery = (SearchBooksQuery.of(query = query, page = page, size = size) as Outcome.Success).value
+    ): SearchBooksQuery = SearchBooksQuery.of(query = query, page = page, size = size).requireSuccess()
 }
 
 private class InMemoryBookCatalog : BookCatalog {

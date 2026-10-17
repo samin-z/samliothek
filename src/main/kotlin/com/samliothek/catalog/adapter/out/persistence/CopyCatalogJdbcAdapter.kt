@@ -7,7 +7,7 @@ import com.samliothek.shared.ids.BookId
 import org.springframework.stereotype.Component
 
 @Component
-class CopyCatalogJdbcAdapter(
+internal class CopyCatalogJdbcAdapter(
     private val copies: CopyJdbcRepository,
 ) : CopyCatalog {
     override fun save(copy: Copy) {
