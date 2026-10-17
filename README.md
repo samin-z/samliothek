@@ -28,3 +28,22 @@ open http://localhost:8080/swagger-ui.html
 ```
 
 OpenAPI is public — no authentication or authorisation (deliberate).
+
+## Local CI (before push)
+
+`compileKotlin` only fails on **real Kotlin compile errors** (syntax/types).
+It will **not** fail on style issues, unsafe casts, or architecture rules — those are
+`detekt` / `ktlint` / tests. CI runs all of them via `./gradlew check`.
+
+For a fast pre-push gate (no Testcontainers):
+
+```bash
+export JAVA_HOME=$(/usr/libexec/java_home -v 24)
+./gradlew ciLocal          # compileKotlin + compileTestKotlin + detekt + ktlintCheck
+```
+
+Install the git pre-commit hook once (runs `ciLocal` on every commit):
+
+```bash
+./scripts/install-git-hooks.sh
+```

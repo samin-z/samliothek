@@ -10,7 +10,7 @@ import org.testcontainers.rabbitmq.RabbitMQContainer
  * Shared RabbitMQ Testcontainers wiring for notification adapter tests.
  */
 @Testcontainers
-abstract class RabbitIntegrationTest : PostgresIntegrationTest() {
+abstract class RabbitMqIntegrationTest : PostgresIntegrationTest() {
     companion object {
         @Container
         @JvmStatic

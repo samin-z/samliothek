@@ -19,3 +19,9 @@ style:
 performance:
   SpreadOperator:
     active: false
+
+potential-bugs:
+  UnsafeCast:
+    active: true
+  UnsafeCallOnNullableType:
+    active: true

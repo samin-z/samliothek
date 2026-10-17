@@ -699,7 +699,7 @@ The shape matters more than the count. Most tests should be the fast kind.
 
 - Testcontainers: use `PostgreSQLContainer` and `RabbitMQContainer`, not `GenericContainer`
   — they have proper wait strategies. Wire once in abstract base classes
-  (`PostgresIntegrationTest`, `RabbitIntegrationTest`), not copy-pasted per test class.
+  (`PostgresIntegrationTest`, `RabbitMqIntegrationTest`), not copy-pasted per test class.
 - **Never assert on generated IDs.** Capture the ID from the response and use it. No
   `ALTER SEQUENCE … RESTART` in test setup.
 - Backtick test names that read as specifications: `` `checkout is rejected when member has an overdue loan` ``.

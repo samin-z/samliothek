@@ -118,3 +118,13 @@ tasks.named("detekt").configure {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+/**
+ * Fast local CI gate used by the git pre-commit hook.
+ * Compile + static analysis only — no Testcontainers (those stay in `check` / GitHub Actions).
+ */
+tasks.register("ciLocal") {
+    group = "verification"
+    description = "Compile + detekt + ktlint (no integration tests)"
+    dependsOn("compileKotlin", "compileTestKotlin", "detekt", "ktlintCheck")
+}

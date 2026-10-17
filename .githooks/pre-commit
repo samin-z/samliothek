@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Fast local CI gate — mirrors the cheap parts of GitHub Actions `./gradlew check`
+# (compile + detekt + ktlint). Full Testcontainers suite stays for CI / `./gradlew check`.
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+if [[ -x /usr/libexec/java_home ]]; then
+  # detekt 1.23 cannot parse JDK 25; prefer 24 for the Gradle JVM
+  if JAVA24="$(/usr/libexec/java_home -v 24 2>/dev/null)"; then
+    export JAVA_HOME="$JAVA24"
+  fi
+fi
+
+echo "==> pre-commit: ./gradlew ciLocal"
+./gradlew ciLocal --daemon

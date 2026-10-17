@@ -19,20 +19,43 @@ class CatalogExceptionAdvice {
     ): ResponseEntity<ProblemDetail> =
         when (error) {
             is CatalogError.BookNotFound ->
-                problem(404, "book-not-found", "Book not found", "No book with id ${error.id.value}", instance)
+                problem(
+                    HttpStatus.NOT_FOUND,
+                    "book-not-found",
+                    "Book not found",
+                    "No book with id ${error.id.value}",
+                    instance,
+                )
             is CatalogError.DuplicateIsbn ->
-                problem(409, "duplicate-isbn", "Duplicate ISBN", "ISBN ${error.isbn.value} already registered", instance)
+                problem(
+                    HttpStatus.CONFLICT,
+                    "duplicate-isbn",
+                    "Duplicate ISBN",
+                    "ISBN ${error.isbn.value} already registered",
+                    instance,
+                )
             is CatalogError.CopyNotFound ->
-                problem(404, "copy-not-found", "Copy not found", "No copy with barcode ${error.barcode.value}", instance)
+                problem(
+                    HttpStatus.NOT_FOUND,
+                    "copy-not-found",
+                    "Copy not found",
+                    "No copy with barcode ${error.barcode.value}",
+                    instance,
+                )
             is CatalogError.CopyNotAvailable ->
-                problem(409, "copy-not-available", "Copy not available", "Copy ${error.id.value} is not available", instance)
+                problem(
+                    HttpStatus.CONFLICT,
+                    "copy-not-available",
+                    "Copy not available",
+                    "Copy ${error.id.value} is not available",
+                    instance,
+                )
         }
 
     fun validationProblem(
         error: ValidationError,
         instance: String = currentInstance(),
-    ): ResponseEntity<ProblemDetail> =
-        problem(400, "validation", "Validation failed", error.message, instance)
+    ): ResponseEntity<ProblemDetail> = problem(HttpStatus.BAD_REQUEST, "validation", "Validation failed", error.message, instance)
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleValidation(ex: MethodArgumentNotValidException): ResponseEntity<ProblemDetail> {
@@ -44,16 +67,15 @@ class CatalogExceptionAdvice {
     }
 
     private fun problem(
-        status: Int,
+        status: HttpStatus,
         typeSlug: String,
         title: String,
         detail: String,
         instance: String,
     ): ResponseEntity<ProblemDetail> =
         ResponseEntity
-            .status(HttpStatus.valueOf(status))
-            .body(Problems.of(status, typeSlug, title, detail, instance))
+            .status(status)
+            .body(Problems.of(status.value(), typeSlug, title, detail, instance))
 
-    private fun currentInstance(): String =
-        ServletUriComponentsBuilder.fromCurrentRequest().build().path ?: "/"
+    private fun currentInstance(): String = ServletUriComponentsBuilder.fromCurrentRequest().build().path ?: "/"
 }
