@@ -129,9 +129,17 @@ class BookControllerTest {
         given(searchBooks.search(any())).willReturn(BookPage(items = listOf(book), page = 0, size = 20))
 
         mockMvc
-            .perform(get("/api/books").param("query", "clean"))
+            .perform(get("/api/books").param("query", "testing"))
             .andExpect(status().isOk)
             .andExpect(jsonPath("$.items[0].title").value("Testing Book"))
+    }
+
+    @Test
+    fun `GET books returns 400 for invalid page size`() {
+        mockMvc
+            .perform(get("/api/books").param("size", "0"))
+            .andExpect(status().isBadRequest)
+            .andExpect(jsonPath("$.type").value("https://samliothek.dev/errors/validation"))
     }
 
     @Test

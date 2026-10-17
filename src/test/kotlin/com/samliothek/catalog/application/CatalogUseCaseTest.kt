@@ -98,8 +98,8 @@ class CatalogUseCaseTest {
             ),
         )
 
-        val byTitle = searchBooks.search(SearchBooksQuery(query = "clean", page = 0, size = 20))
-        val byAuthor = searchBooks.search(SearchBooksQuery(query = "gamma", page = 0, size = 20))
+        val byTitle = searchBooks.search(searchQuery("clean"))
+        val byAuthor = searchBooks.search(searchQuery("gamma"))
 
         byTitle.items.shouldHaveSize(1)
         byTitle.items.single().title shouldBe "Clean Code"
@@ -159,6 +159,12 @@ class CatalogUseCaseTest {
         )
 
     private fun isbn(raw: String): Isbn = (Isbn.of(raw) as Outcome.Success).value
+
+    private fun searchQuery(
+        query: String = "",
+        page: Int = 0,
+        size: Int = 20,
+    ): SearchBooksQuery = (SearchBooksQuery.of(query = query, page = page, size = size) as Outcome.Success).value
 }
 
 private class InMemoryBookCatalog : BookCatalog {

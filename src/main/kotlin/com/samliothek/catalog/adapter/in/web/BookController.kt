@@ -1,7 +1,6 @@
 package com.samliothek.catalog.adapter.`in`.web
 
 import com.samliothek.catalog.adapter.`in`.web.dto.AddCopyRequest
-import com.samliothek.catalog.adapter.`in`.web.dto.BookPageResponse
 import com.samliothek.catalog.adapter.`in`.web.dto.RegisterBookRequest
 import com.samliothek.catalog.application.port.`in`.AddCopyCommand
 import com.samliothek.catalog.application.port.`in`.AddCopyUseCase
@@ -75,9 +74,14 @@ class BookController(
         @RequestParam(required = false, defaultValue = "") query: String,
         @RequestParam(required = false, defaultValue = "0") page: Int,
         @RequestParam(required = false, defaultValue = "20") size: Int,
-    ): BookPageResponse {
-        val result = searchBooks.search(SearchBooksQuery(query = query, page = page, size = size))
-        return result.items.toPageResponse(result.page, result.size)
+    ): ResponseEntity<*> {
+        val searchQuery =
+            when (val parsed = SearchBooksQuery.of(query = query, page = page, size = size)) {
+                is Outcome.Failure -> return advice.validationProblem(parsed.error)
+                is Outcome.Success -> parsed.value
+            }
+        val result = searchBooks.search(searchQuery)
+        return ResponseEntity.ok(result.items.toPageResponse(result.page, result.size))
     }
 
     @PostMapping("/{bookId}/copies")

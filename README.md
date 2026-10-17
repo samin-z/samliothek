@@ -21,11 +21,15 @@ docker compose version # v2.x
 ## First run
 
 ```bash
+cp .env.example .env   # optional local overrides (gitignored)
 docker compose up -d
 ./gradlew build
 ./gradlew bootRun
 open http://localhost:8080/swagger-ui.html
 ```
+
+DB/Rabbit credentials come from environment variables (see `.env.example`).
+`application.yaml` and `compose.yaml` only keep local defaults via `${VAR:default}`.
 
 OpenAPI is public — no authentication or authorisation (deliberate).
 

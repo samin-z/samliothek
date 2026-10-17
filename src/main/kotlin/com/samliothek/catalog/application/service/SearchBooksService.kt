@@ -13,14 +13,7 @@ internal class SearchBooksService(
 ) : SearchBooksUseCase {
     @Transactional(readOnly = true)
     override fun search(query: SearchBooksQuery): BookPage {
-        val size = query.size.coerceIn(MIN_PAGE_SIZE, MAX_PAGE_SIZE)
-        val page = query.page.coerceAtLeast(0)
-        val items = books.search(query.query, page, size)
-        return BookPage(items = items, page = page, size = size)
-    }
-
-    private companion object {
-        const val MIN_PAGE_SIZE = 1
-        const val MAX_PAGE_SIZE = 100
+        val items = books.search(query.query, query.page, query.size)
+        return BookPage(items = items, page = query.page, size = query.size)
     }
 }

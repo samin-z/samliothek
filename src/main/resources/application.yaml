@@ -5,9 +5,9 @@ spring:
     virtual:
       enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/samliothek
-    username: samliothek
-    password: samliothek
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/${POSTGRES_DB:samliothek}}
+    username: ${SPRING_DATASOURCE_USERNAME:${POSTGRES_USER:samliothek}}
+    password: ${SPRING_DATASOURCE_PASSWORD:${POSTGRES_PASSWORD:samliothek}}
   flyway:
     enabled: true
   modulith:
@@ -16,10 +16,10 @@ spring:
         schema-initialization:
           enabled: false
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: samliothek
-    password: samliothek
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:samliothek}
+    password: ${SPRING_RABBITMQ_PASSWORD:samliothek}
   docker:
     compose:
       lifecycle-management: start_and_stop
