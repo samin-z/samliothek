@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 
 @RestControllerAdvice(basePackages = ["com.samliothek.catalog.adapter.in.web"])
-internal class CatalogExceptionAdvice(
-    private val catalogErrors: CatalogErrorMapper,
-) {
+internal class CatalogExceptionAdvice {
+    private val catalogErrors: CatalogErrorMapper = CatalogErrorProblemMapper()
+
     fun toProblem(
         error: CatalogError,
         instance: String = currentInstance(),

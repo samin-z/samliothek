@@ -5,7 +5,6 @@ import com.samliothek.shared.problem.Problems
 import org.springframework.http.HttpStatus
 import org.springframework.http.ProblemDetail
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Component
 
 internal fun interface CatalogErrorMapper {
     fun map(
@@ -14,7 +13,6 @@ internal fun interface CatalogErrorMapper {
     ): ResponseEntity<ProblemDetail>
 }
 
-@Component
 internal class CatalogErrorProblemMapper : CatalogErrorMapper {
     override fun map(
         error: CatalogError,

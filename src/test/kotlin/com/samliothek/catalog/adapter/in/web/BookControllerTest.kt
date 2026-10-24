@@ -20,7 +20,6 @@ import org.mockito.BDDMockito.given
 import org.mockito.kotlin.any
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest
-import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
 import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
@@ -32,9 +31,9 @@ import java.util.UUID
 
 /**
  * HTTP adapter tests. Use cases are mocked — no database.
+ * `@RestControllerAdvice` beans are picked up by the WebMvc slice automatically.
  */
 @WebMvcTest(controllers = [BookController::class])
-@Import(CatalogExceptionAdvice::class, CatalogErrorProblemMapper::class)
 class BookControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
