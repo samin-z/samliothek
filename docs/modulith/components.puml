@@ -19,13 +19,15 @@ System_Boundary("SamliothekApplication_boundary", "SamliothekApplication", $tags
   Container_Boundary("SamliothekApplication.SamliothekApplication_boundary", "SamliothekApplication", $tags="") {
     Component(SamliothekApplication.SamliothekApplication.Shared, "Shared", $techn="Module", $descr="", $tags="", $link="")
     Component(SamliothekApplication.SamliothekApplication.Catalog, "Catalog", $techn="Module", $descr="", $tags="", $link="")
+    Component(SamliothekApplication.SamliothekApplication.Member, "Member", $techn="Module", $descr="", $tags="", $link="")
     Component(SamliothekApplication.SamliothekApplication.Notification, "Notification", $techn="Module", $descr="", $tags="", $link="")
   }
 
 }
 
-Rel(SamliothekApplication.SamliothekApplication.Catalog, SamliothekApplication.SamliothekApplication.Shared, "depends on", $techn="", $tags="", $link="")
 Rel(SamliothekApplication.SamliothekApplication.Notification, SamliothekApplication.SamliothekApplication.Shared, "depends on", $techn="", $tags="", $link="")
+Rel(SamliothekApplication.SamliothekApplication.Member, SamliothekApplication.SamliothekApplication.Shared, "depends on", $techn="", $tags="", $link="")
+Rel(SamliothekApplication.SamliothekApplication.Catalog, SamliothekApplication.SamliothekApplication.Shared, "depends on", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
 hide stereotypes
