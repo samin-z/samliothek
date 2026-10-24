@@ -4,6 +4,7 @@ import com.samliothek.shared.Outcome
 import com.samliothek.shared.notification.NotificationGateway
 import com.samliothek.shared.notification.NotificationMessage
 import org.slf4j.LoggerFactory
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component
  * Checkout must never depend on this succeeding.
  */
 @Component
+@Profile("!rabbit")
 internal class LoggingNotificationGateway : NotificationGateway {
     private val log = LoggerFactory.getLogger(javaClass)
 
